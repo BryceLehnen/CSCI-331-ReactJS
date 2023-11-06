@@ -11,7 +11,9 @@ const SearchBar = (props) => {
     }
 
     const filteredProducts = props.products.filter((product) => {
-        return product.title.includes(searchValue)
+        if (product.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return product.title
+        }
     })
 
     return (
