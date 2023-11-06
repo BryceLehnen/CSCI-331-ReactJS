@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"
+import './table.css'
 
 const SearchBar = (props) => {
     let [searchValue, setSearchValue] = useState("")
@@ -10,17 +11,28 @@ const SearchBar = (props) => {
     }
 
     const filteredProducts = props.products.filter((product) => {
-        return product.includes(searchValue)
+        return product.title.includes(searchValue)
     })
 
     return (
         <div>
             <input type="text" value={searchValue} onChange={changeSearch} placeholder="Search products"></input>
-            <ul>
-                {filteredProducts.map((product) => {
-                    return <li key={product}>{product}</li>
-                })}
-            </ul>
+            <table>
+                <tbody>
+                    {
+                        filteredProducts.map((product) => {
+                            return (
+                                <tr key={product.title}>
+                                    <td>{product.title}</td>
+                                    <td>{product.price}</td>
+                                    <td><img src={product.image} alt="oopsie daisy"/></td>
+                                </tr>
+                            );
+                        })
+                    }
+                </tbody>
+            </table>
+            
         </div>
     )
 }

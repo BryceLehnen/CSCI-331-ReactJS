@@ -7,15 +7,18 @@ export default function Page() {
     const [productsState, setProductsState] = useState([])
 
     useEffect(() => {
-        setTimeout(() => {
-            setProductsState([
-                "example1",
-                "example2",
-                "example3",
-                "example4",
-                "example5",
-            ])
-        }, 2000)
+        fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(productsArray=> {
+                const newProductsState = productsArray.map((product) => {
+                    return (
+                        {title: product.title,
+                         price: product.price,
+                         image: product.image}
+                    );
+                })
+                setProductsState(newProductsState)
+            })
     }, [])
 
     const hasProducts = productsState.length > 0
